@@ -34,7 +34,7 @@ func readFile(filename string) ([]int, error) {
 	return numlist, nil
 }
 
-func findMultiple(numlist []int, year int) int {
+func findTwo(numlist []int, year int) int {
 	intmap := make(map[int]bool, len(numlist))
 	multiple := -1
 
@@ -53,6 +53,28 @@ func findMultiple(numlist []int, year int) int {
 	return multiple
 }
 
+func findThree(numlist []int, year int) int {
+	multiple := -1
+
+outer:
+	for i := 0; i < len(numlist)-1; i++ {
+		intmap := make(map[int]bool, len(numlist))
+
+		for j := i + 1; j < len(numlist); j++ {
+			tmp := year - numlist[i] - numlist[j]
+			if _, found := intmap[tmp]; found {
+				fmt.Println(numlist[i], numlist[j], tmp)
+				multiple = tmp * numlist[i] * numlist[j]
+				break outer
+			} else {
+				intmap[numlist[j]] = true
+			}
+		}
+	}
+
+	return multiple
+}
+
 func main() {
 	var err error
 
@@ -61,5 +83,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(findMultiple(numlist, 2020))
+	fmt.Println(findTwo(numlist, 2020))
+	fmt.Println(findThree(numlist, 2020))
+
 }
