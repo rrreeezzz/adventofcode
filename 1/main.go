@@ -85,5 +85,4 @@ func main() {
 
 	fmt.Println(findTwo(numlist, 2020))
 	fmt.Println(findThree(numlist, 2020))
-
 }
